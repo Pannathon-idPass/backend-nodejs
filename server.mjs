@@ -5,16 +5,10 @@ createServer((req, res) => {
 
 
 
-const app = require('express')();
-const http = require('http').Server(app);
-http.listen(3000)
-const io = require("socket.io")(http, {
-    cors: {
-        origin: "*",
-    }
-});
-
-
+// const app = require('express')();
+// const http = require('http').Server(app);
+// http.listen(3000)
+const io = require("socket.io");
 io.on('connection', client => {
     console.log('user connected')
 
