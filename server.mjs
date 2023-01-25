@@ -1,6 +1,7 @@
 import { createServer } from 'http';
 
 
+createServer((req, res) => {
 
 
 
@@ -38,7 +39,6 @@ io.on('connection', client => {
 
 
 
-createServer((req, res) => {
   res.write('Hello World!');
   res.end();
 }).listen(process.env.PORT || 3000);
