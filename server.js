@@ -1,5 +1,7 @@
 const app = require('express')();
 const server = require('http').createServer(app);
+const cron = require('node-cron');
+
 const io = require('socket.io')(server, {
   cors:{
     origin: "*"
@@ -7,6 +9,9 @@ const io = require('socket.io')(server, {
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
+cron.schedule('*/1 * * * *', function(){
+  console.log('running every 1 minute : ' + new Date().toString());
+});    
 
 
 io.on('connection', client => {
@@ -18,7 +23,10 @@ io.on('connection', client => {
         console.log("message: ", message);
         io.sockets.emit("messageBox", message)
     })
-    
+
+ 
+
+
     // setInterval(()=> {
     //     io.sockets.emit("count",i++)
     // },1000)
