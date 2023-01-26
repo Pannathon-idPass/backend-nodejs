@@ -1,6 +1,10 @@
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors:{
+    origin: "*"
+  }
+});
 // const hostname = '127.0.0.1';
 // const port = 3000;
 
