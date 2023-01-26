@@ -11,6 +11,11 @@ const io = require('socket.io')(server, {
 // const port = 3000;
 cron.schedule('*/1 * * * *', function(){
   console.log('running every 1 minute : ' + new Date().toString());
+  var autoMessage = {
+    username: '--System--',
+    message: 'https://youtu.be/HTHpkQJ3pVI'
+  }
+  io.sockets.emit("messageBox", autoMessage)
 });    
 
 
