@@ -2,9 +2,6 @@ import { createServer } from 'http';
 import { io } from 'socket.io';
 
 
-createServer((req, res) => {
-
-
 
 // const app = require('express')();
 // const http = require('http').Server(app);
@@ -33,7 +30,7 @@ io.on('connection', client => {
 
 
 
-
+createServer((req, res) => {
 //   res.write('Hello World!');
 //   res.end();
 }).listen(process.env.PORT);
