@@ -6,7 +6,7 @@ createServer((req, res) => {
   res.end();
 }).listen(process.env.PORT);
 
-// const io = require("socket.io");
+const io = require("socket.io");
 
 // io.on('connection', client => {
 //     console.log('user connected')
