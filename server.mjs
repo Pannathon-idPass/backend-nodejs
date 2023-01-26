@@ -3,9 +3,25 @@ import { io } from 'socket.io';
 
 
 
-// const app = require('express')();
-// const http = require('http').Server(app);
-// http.listen(3000)
+const app = require('express')();
+const http = require('http').Server(app);
+
+app.get('/',(res) => {
+  console.log("GET /");
+})
+
+
+
+
+
+
+
+http.listen( process.env.PORT || 3000)
+
+
+
+
+
 // const io = require("socket.io");
 
 // io.on('connection', client => {
@@ -31,8 +47,8 @@ import { io } from 'socket.io';
 
 
 
-createServer((req, res) => {
-//   res.write('Hello World!');
-//   res.end();
-}).listen(process.env.PORT || 3000);
+// createServer((req, res) => {
+// //   res.write('Hello World!');
+// //   res.end();
+// }).listen(process.env.PORT || 3000);
 
