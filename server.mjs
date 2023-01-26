@@ -1,26 +1,12 @@
 // import { createServer } from 'http';
 // import { io } from 'socket.io';
 
+import { createServer } from 'http';
 
-
-const app = require('express')();
-const http = require('http').Server(app);
-
-app.get('/',(res) => {
-  console.log("GET /");
-})
-
-
-
-
-
-
-
-http.listen( process.env.PORT || 3000)
-
-
-
-
+createServer((req, res) => {
+  res.write('Hello World!');
+  res.end();
+}).listen(process.env.PORT);
 
 // const io = require("socket.io");
 
