@@ -9,7 +9,7 @@ const io = require('socket.io')(server, {
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
-cron.schedule('30 21 17 * * *', function(){
+cron.schedule('30 29 17 * * *', function(){
   console.log('running every  at 17:21:30  : ' + new Date().toString());
   var autoMessage = {
     username: '--System--',
