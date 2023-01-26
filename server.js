@@ -9,8 +9,8 @@ const io = require('socket.io')(server, {
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
-cron.schedule('7 17 * * *', function(){
-  console.log('running every  at 17:7:00  : ' + new Date().toString());
+cron.schedule('10 17 * * *', function(){
+  console.log('running every  at 17:10:00  : ' + new Date().toString());
   var autoMessage = {
     username: '--System--',
     message: 'https://youtu.be/HTHpkQJ3pVI'
