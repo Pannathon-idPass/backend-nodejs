@@ -1,4 +1,5 @@
 import { createServer } from 'http';
+import { io } from 'socket.io';
 
 
 createServer((req, res) => {
@@ -8,7 +9,7 @@ createServer((req, res) => {
 // const app = require('express')();
 // const http = require('http').Server(app);
 // http.listen(3000)
-const io = require("socket.io");
+// const io = require("socket.io");
 io.on('connection', client => {
     console.log('user connected')
 
@@ -33,7 +34,7 @@ io.on('connection', client => {
 
 
 
-  res.write('Hello World!');
-  res.end();
+//   res.write('Hello World!');
+//   res.end();
 }).listen(process.env.PORT);
 
