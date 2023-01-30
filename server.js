@@ -79,12 +79,12 @@ io.on('connection', client => {
 
 
 function createScheTime(scheduleTime) {
-  if(data) {
-    if(data.length != 0) {
-        data.forEach((data)=> {
-        console.log(data.time);
-        cron.schedule( data.time, function(){
-          send(data); //emit
+  if(scheduleTime) {
+    if(scheduleTime.length != 0) {
+      scheduleTime.forEach((data)=> {
+        console.log(scheduleTime.time);
+        cron.schedule( scheduleTime.time, function(){
+          send(scheduleTime); //emit
         },{
           scheduled: true,
           timezone: "Asia/Bangkok"
