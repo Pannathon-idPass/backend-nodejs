@@ -11,6 +11,10 @@ const io = require('socket.io')(server, {
 // const port = 3000;
 var scheduleTime = [
   {
+    url:'https://youtu.be/HTHpkQJ3pVI',
+    time: "30 59 5 * * *"
+  },
+  {
     url:'https://youtu.be/unDdFNlamu4',
     time: "30 15 14 * * *"
   },
@@ -28,6 +32,8 @@ var scheduleTime = [
   }
 ]
 
+var lastMessage;
+
 scheduleTime.forEach((time)=> {
   console.log(time.time);
   cron.schedule( time.time, function(){
@@ -37,6 +43,7 @@ scheduleTime.forEach((time)=> {
       message: time.url,
       timeStramp: new Date().toString()
     }
+    lastMessage = autoMessage;
     io.sockets.emit("messageBox", autoMessage)
   },{
     scheduled: true,
@@ -48,12 +55,19 @@ scheduleTime.forEach((time)=> {
 io.on('connection', client => {
     console.log('user connected')
     
-    
+
+    io.sockets.emit("messageBox", lastMessage)
 
     // ส่งข้อมูลไปยัง Client ทุกตัวที่เขื่อมต่อแบบ Realtime
     client.on('message', function (message) {
         console.log("message: ", message);
-        io.sockets.emit("messageBox", message)
+        // { // example
+        //   "username": res.username,
+        //   "message": res.message,
+        //   "timeStramp": this.getDateTime()
+        // }
+        lastMessage = message;
+        io.sockets.emit("messageBox", message);
     })
 
     client.on('addList', function (add) {
