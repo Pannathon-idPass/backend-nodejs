@@ -9,32 +9,40 @@ const io = require('socket.io')(server, {
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
-
-cron.schedule('0 47 9 * * *', function(){
-  console.log('running every  at 17:21:30  : ' + new Date().toString());
-  var autoMessage = {
-    username: '--System--',
-    message: 'https://youtu.be/shlO-n675fE',
-    timeStramp: new Date().toString()
+var scheduleTime = [
+  {
+    url:'https://youtu.be/unDdFNlamu4',
+    time: "30 8 14 * * *"
+  },
+  {
+    url:'https://youtu.be/gvtfhqOGUKA',
+    time: "0 9 14 * * *"
+  },
+  {
+    url:'https://youtu.be/pvk_DA7RXEI',
+    time: "0 10 14 * * *"
+  },
+  {
+    url:'https://youtu.be/ABVr8bVxE3c',
+    time: "0 11 14 * * *"
   }
-  io.sockets.emit("messageBox", autoMessage)
-},{
-  scheduled: true,
-  timezone: "Asia/Bangkok"
-}); 
+]
 
-cron.schedule('0 46 9 * * *', function(){
-  console.log('running every  at 17:21:30  : ' + new Date().toString());
-  var autoMessage = {
-    username: '--System--',
-    message: 'https://youtu.be/efkFVnaSJUM',
-    timeStramp: new Date().toString()
-  }
-  io.sockets.emit("messageBox", autoMessage)
-},{
-  scheduled: true,
-  timezone: "Asia/Bangkok"
-});   
+scheduleTime.forEach((time)=> {
+  console.log(time.time);
+  cron.schedule( time.time, function(){
+    console.log('running every  at : '+ time.time + '/' + new Date().toString());
+    var autoMessage = {
+      username: '--System--',
+      message: time.url,
+      timeStramp: new Date().toString()
+    }
+    io.sockets.emit("messageBox", autoMessage)
+  },{
+    scheduled: true,
+    timezone: "Asia/Bangkok"
+  }); 
+})
 
 
 io.on('connection', client => {
@@ -48,7 +56,13 @@ io.on('connection', client => {
         io.sockets.emit("messageBox", message)
     })
 
- 
+    client.on('addList', function (add) {
+      scheduleTime.push({
+        url: ''
+      });
+      // console.log("message: ", message);
+      // io.sockets.emit("messageBox", message)
+  })
 
 
     // setInterval(()=> {
