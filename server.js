@@ -9,11 +9,12 @@ const io = require('socket.io')(server, {
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
-cron.schedule('30 34 17 * * *', function(){
+
+cron.schedule('0 41 9 * * *', function(){
   console.log('running every  at 17:21:30  : ' + new Date().toString());
   var autoMessage = {
     username: '--System--',
-    message: 'https://youtu.be/HTHpkQJ3pVI'
+    message: 'https://youtu.be/shlO-n675fE'
   }
   io.sockets.emit("messageBox", autoMessage)
 },{
@@ -22,9 +23,11 @@ cron.schedule('30 34 17 * * *', function(){
 });    
 
 
+
 io.on('connection', client => {
     console.log('user connected')
-
+    
+    
 
     // ส่งข้อมูลไปยัง Client ทุกตัวที่เขื่อมต่อแบบ Realtime
     client.on('message', function (message) {
