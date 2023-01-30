@@ -9,27 +9,31 @@ const io = require('socket.io')(server, {
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
+// var scheduleTime = [
+//   {
+//     url:'https://youtu.be/HTHpkQJ3pVI',
+//     time: "30 21 15 * * *",
+//   },
+//   {
+//     url:'https://youtu.be/unDdFNlamu4',
+//     time: "30 22 15 * * *"
+//   },
+//   {
+//     url:'https://youtu.be/gvtfhqOGUKA',
+//     time: "30 23 15 * * *"
+//   },
+//   {
+//     url:'https://youtu.be/pvk_DA7RXEI',
+//     time: "30 24 15 * * *"
+//   },
+//   {
+//     url:'https://youtu.be/ABVr8bVxE3c',
+//     time: "30 25 15 * * *"
+//   }
+// ]
+
 var scheduleTime = [
-  {
-    url:'https://youtu.be/HTHpkQJ3pVI',
-    time: "30 21 15 * * *",
-  },
-  {
-    url:'https://youtu.be/unDdFNlamu4',
-    time: "30 22 15 * * *"
-  },
-  {
-    url:'https://youtu.be/gvtfhqOGUKA',
-    time: "30 23 15 * * *"
-  },
-  {
-    url:'https://youtu.be/pvk_DA7RXEI',
-    time: "30 24 15 * * *"
-  },
-  {
-    url:'https://youtu.be/ABVr8bVxE3c',
-    time: "30 25 15 * * *"
-  }
+
 ]
 
 
@@ -41,10 +45,8 @@ createScheTime();
 io.on('connection', client => {
     console.log('user connected')
     
-
     io.sockets.emit("messageBox", lastUpdate)
 
-    // ส่งข้อมูลไปยัง Client ทุกตัวที่เขื่อมต่อแบบ Realtime
     client.on('message', function (message) {
         console.log("message: ", message);
         // { // example
@@ -56,23 +58,16 @@ io.on('connection', client => {
         io.sockets.emit("messageBox", message);
     })
 
-    client.on('addList', function (add) {
-      scheduleTime.push({
-        url: add.url,
-        time: add.time,
-        createBy: add.username
-      });
-      createScheTime();
-      // console.log("message: ", message);
-      // io.sockets.emit("messageBox", message)
-  })
+    client.on('editList', function (data) {
+      scheduleTime = data
+    })
 
+    client.on('updateScheduleList', function () {
+      console.log("updateSchedule");
+      createScheTime(scheduleTime);
+    })
 
-    // setInterval(()=> {
-    //     io.sockets.emit("count",i++)
-    // },1000)
-
-    // เมื่อ Client ตัดการเชื่อมต่อ
+    
     client.on('disconnect', () => {
         console.log('user disconnected')
     })
@@ -80,20 +75,39 @@ io.on('connection', client => {
 })
 
 
-function createScheTime() {
-  if(scheduleTime.length != 0) {
-    scheduleTime.forEach((data)=> {
-      console.log(data.time);
-      cron.schedule( data.time, function(){
-        send(data); //emit
-      },{
-        scheduled: true,
-        timezone: "Asia/Bangkok"
-      }); 
-    })
-    console.log(scheduleTime);
+
+
+
+function createScheTime(scheduleTime) {
+  if(data) {
+    if(data.length != 0) {
+        data.forEach((data)=> {
+        console.log(data.time);
+        cron.schedule( data.time, function(){
+          send(data); //emit
+        },{
+          scheduled: true,
+          timezone: "Asia/Bangkok"
+        }); 
+      })
+      console.log(scheduleTime);
+    }
+  } else {
+    // if(scheduleTime.length != 0) {
+    //   scheduleTime.forEach((data)=> {
+    //     console.log(data.time);
+    //     cron.schedule( data.time, function(){
+    //       send(data); //emit
+    //     },{
+    //       scheduled: true,
+    //       timezone: "Asia/Bangkok"
+    //     }); 
+    //   })
+    //   console.log(scheduleTime);
+    // }
   }
 }
+
 
 function send(data) {
   console.log('running every  at : '+ data.time + '/' + new Date().toString());
