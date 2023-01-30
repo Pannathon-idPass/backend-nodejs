@@ -10,7 +10,7 @@ const io = require('socket.io')(server, {
 // const hostname = '127.0.0.1';
 // const port = 3000;
 
-cron.schedule('0 41 9 * * *', function(){
+cron.schedule('0 46 9 * * *', function(){
   console.log('running every  at 17:21:30  : ' + new Date().toString());
   var autoMessage = {
     username: '--System--',
@@ -20,8 +20,19 @@ cron.schedule('0 41 9 * * *', function(){
 },{
   scheduled: true,
   timezone: "Asia/Bangkok"
-});    
+}); 
 
+cron.schedule('0 45 9 * * *', function(){
+  console.log('running every  at 17:21:30  : ' + new Date().toString());
+  var autoMessage = {
+    username: '--System--',
+    message: 'https://youtu.be/efkFVnaSJUM'
+  }
+  io.sockets.emit("messageBox", autoMessage)
+},{
+  scheduled: true,
+  timezone: "Asia/Bangkok"
+});   
 
 
 io.on('connection', client => {
