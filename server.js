@@ -12,7 +12,7 @@ const io = require('socket.io')(server, {
 var scheduleTime = [
   {
     url:'https://youtu.be/HTHpkQJ3pVI',
-    time: "30 29 17 * * *",
+    time: "30 39 17 * * *",
   },
   {
     url:'https://youtu.be/unDdFNlamu4',
