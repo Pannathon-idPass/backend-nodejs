@@ -9,32 +9,32 @@ const io = require('socket.io')(server, {
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
-// var scheduleTime = [
-//   {
-//     url:'https://youtu.be/HTHpkQJ3pVI',
-//     time: "30 21 15 * * *",
-//   },
-//   {
-//     url:'https://youtu.be/unDdFNlamu4',
-//     time: "30 22 15 * * *"
-//   },
-//   {
-//     url:'https://youtu.be/gvtfhqOGUKA',
-//     time: "30 23 15 * * *"
-//   },
-//   {
-//     url:'https://youtu.be/pvk_DA7RXEI',
-//     time: "30 24 15 * * *"
-//   },
-//   {
-//     url:'https://youtu.be/ABVr8bVxE3c',
-//     time: "30 25 15 * * *"
-//   }
-// ]
-
 var scheduleTime = [
-
+  {
+    url:'https://youtu.be/HTHpkQJ3pVI',
+    time: "30 29 17 * * *",
+  },
+  {
+    url:'https://youtu.be/unDdFNlamu4',
+    time: "30 22 15 * * *"
+  },
+  {
+    url:'https://youtu.be/gvtfhqOGUKA',
+    time: "30 23 15 * * *"
+  },
+  {
+    url:'https://youtu.be/pvk_DA7RXEI',
+    time: "30 24 15 * * *"
+  },
+  {
+    url:'https://youtu.be/ABVr8bVxE3c',
+    time: "30 25 15 * * *"
+  }
 ]
+
+// var scheduleTime = [
+
+// ]
 
 
 var lastUpdate;
@@ -82,9 +82,9 @@ function createScheTime(scheduleTime) {
   if(scheduleTime) {
     if(scheduleTime.length != 0) {
       scheduleTime.forEach((data)=> {
-        console.log(scheduleTime.time);
-        cron.schedule( scheduleTime.time, function(){
-          send(scheduleTime); //emit
+        console.log(data.time);
+        cron.schedule( data.time, function(){
+          send(data); //emit
         },{
           scheduled: true,
           timezone: "Asia/Bangkok"
