@@ -12,19 +12,19 @@ const io = require('socket.io')(server, {
 var scheduleTime = [
   {
     url:'https://youtu.be/unDdFNlamu4',
-    time: "30 8 14 * * *"
+    time: "30 15 14 * * *"
   },
   {
     url:'https://youtu.be/gvtfhqOGUKA',
-    time: "0 9 14 * * *"
+    time: "0 16 14 * * *"
   },
   {
     url:'https://youtu.be/pvk_DA7RXEI',
-    time: "0 10 14 * * *"
+    time: "0 17 14 * * *"
   },
   {
     url:'https://youtu.be/ABVr8bVxE3c',
-    time: "0 11 14 * * *"
+    time: "0 18 14 * * *"
   }
 ]
 
