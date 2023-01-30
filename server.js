@@ -12,51 +12,37 @@ const io = require('socket.io')(server, {
 var scheduleTime = [
   {
     url:'https://youtu.be/HTHpkQJ3pVI',
-    time: "30 59 5 * * *"
+    time: "30 21 15 * * *",
   },
   {
     url:'https://youtu.be/unDdFNlamu4',
-    time: "30 15 14 * * *"
+    time: "30 22 15 * * *"
   },
   {
     url:'https://youtu.be/gvtfhqOGUKA',
-    time: "0 16 14 * * *"
+    time: "30 23 15 * * *"
   },
   {
     url:'https://youtu.be/pvk_DA7RXEI',
-    time: "0 17 14 * * *"
+    time: "30 24 15 * * *"
   },
   {
     url:'https://youtu.be/ABVr8bVxE3c',
-    time: "0 18 14 * * *"
+    time: "30 25 15 * * *"
   }
 ]
 
-var lastMessage;
 
-scheduleTime.forEach((time)=> {
-  console.log(time.time);
-  cron.schedule( time.time, function(){
-    console.log('running every  at : '+ time.time + '/' + new Date().toString());
-    var autoMessage = {
-      username: '--System--',
-      message: time.url,
-      timeStramp: new Date().toString()
-    }
-    lastMessage = autoMessage;
-    io.sockets.emit("messageBox", autoMessage)
-  },{
-    scheduled: true,
-    timezone: "Asia/Bangkok"
-  }); 
-})
+var lastUpdate;
 
+
+createScheTime();
 
 io.on('connection', client => {
     console.log('user connected')
     
 
-    io.sockets.emit("messageBox", lastMessage)
+    io.sockets.emit("messageBox", lastUpdate)
 
     // ส่งข้อมูลไปยัง Client ทุกตัวที่เขื่อมต่อแบบ Realtime
     client.on('message', function (message) {
@@ -66,14 +52,17 @@ io.on('connection', client => {
         //   "message": res.message,
         //   "timeStramp": this.getDateTime()
         // }
-        lastMessage = message;
+        lastUpdate = message;
         io.sockets.emit("messageBox", message);
     })
 
     client.on('addList', function (add) {
       scheduleTime.push({
-        url: ''
+        url: add.url,
+        time: add.time,
+        createBy: add.username
       });
+      createScheTime();
       // console.log("message: ", message);
       // io.sockets.emit("messageBox", message)
   })
@@ -91,6 +80,31 @@ io.on('connection', client => {
 })
 
 
+function createScheTime() {
+  if(scheduleTime.length != 0) {
+    scheduleTime.forEach((data)=> {
+      console.log(data.time);
+      cron.schedule( data.time, function(){
+        send(data); //emit
+      },{
+        scheduled: true,
+        timezone: "Asia/Bangkok"
+      }); 
+    })
+    console.log(scheduleTime);
+  }
+}
+
+function send(data) {
+  console.log('running every  at : '+ data.time + '/' + new Date().toString());
+  var autoMessage = {
+    username: data.username || '--System--',
+    message: data.url,
+    timeStramp: new Date().toString()
+  }
+  lastUpdate = autoMessage;
+  io.sockets.emit("messageBox", autoMessage)
+}
 
 
 server.listen( process.env.PORT, () => {
