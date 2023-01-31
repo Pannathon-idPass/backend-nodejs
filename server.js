@@ -37,7 +37,7 @@ var scheduleTime = [
 // ]
 
 var lastUpdate;
-var history;
+var history = [];
 
 
 createScheTime();
