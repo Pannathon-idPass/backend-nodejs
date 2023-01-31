@@ -36,7 +36,7 @@ var scheduleTime = [
 
 // ]
 
-var lastUpdate;
+// var lastUpdate;
 var historyBoxList = [];
 
 
@@ -45,7 +45,7 @@ createScheTime();
 io.on('connection', client => {
     console.log('user connected')
     io.sockets.emit("getHistoryBox", historyBoxList)
-    io.sockets.emit("messageBox", lastUpdate)
+    // io.sockets.emit("messageBox", lastUpdate)
 
     client.on('message', function (message) {
         console.log("message: ", message);
@@ -124,8 +124,7 @@ function send(data) {
     message: data.url,
     timeStramp: new Date().toString()
   }
-  lastUpdate = autoMessage;  
-  history.push(autoMessage);
+  // lastUpdate = autoMessage;  
   io.sockets.emit("messageBox", autoMessage)
 }
 
