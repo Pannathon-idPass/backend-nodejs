@@ -74,8 +74,7 @@ io.on('connection', client => {
     })
     
     client.on('count', function (res) {
-      io.sockets.emit("count", res);
-
+      io.sockets.emit("count", Date.now());
     })
     
     
