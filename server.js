@@ -41,7 +41,7 @@ var scheduleTime = [
 var historyBoxList = [];
 
 
-createScheTime();
+createScheTime(scheduleTime);
 
 io.on('connection', client => {
     console.log('user connected')
