@@ -36,15 +36,15 @@ var scheduleTime = [
 
 // ]
 
-
 var lastUpdate;
+var history;
 
 
 createScheTime();
 
 io.on('connection', client => {
     console.log('user connected')
-    
+    io.sockets.emit("history", history)
     io.sockets.emit("messageBox", lastUpdate)
 
     client.on('message', function (message) {
@@ -54,9 +54,11 @@ io.on('connection', client => {
         //   "message": res.message,
         //   "timeStramp": this.getDateTime()
         // }
+        history.push(message);
         lastUpdate = message;
         io.sockets.emit("messageBox", message);
-    })
+      })
+      
 
     client.on('editList', function (data) {
       scheduleTime = data
@@ -66,6 +68,7 @@ io.on('connection', client => {
       console.log("updateSchedule");
       createScheTime(scheduleTime);
     })
+    
 
     
     client.on('disconnect', () => {
@@ -116,7 +119,8 @@ function send(data) {
     message: data.url,
     timeStramp: new Date().toString()
   }
-  lastUpdate = autoMessage;
+  lastUpdate = autoMessage;  
+  history.push(autoMessage);
   io.sockets.emit("messageBox", autoMessage)
 }
 
