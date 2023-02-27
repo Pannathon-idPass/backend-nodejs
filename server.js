@@ -4,8 +4,11 @@ const cron = require('node-cron');
 
 const io = require('socket.io')(server, {
   cors:{
-    origin: "*"
-  }
+    origin: "*",
+    transports: ["websocket", "polling"],
+  },
+  allowEIO3: true,
+  allowEIO4: true,
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
