@@ -9,12 +9,12 @@ const io = require('socket.io')(server, {
   },
   allowEIO3: true,
   allowEIO4: true,
+  credentials: true,
 });
 // const hostname = '127.0.0.1';
 // const port = 3000;
 var scheduleTime = [
   {
-    url:'https://youtu.be/HTHpkQJ3pVI',
     time: "30 29 17 * * *",
   }
   // ,
