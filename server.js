@@ -99,7 +99,7 @@ function createScheTime(sche) {
           timezone: "Asia/Bangkok"
         }); 
       })
-      console.log(sche);
+      // console.log(sche);
     }
   } else {
     // if(scheduleTime.length != 0) {
