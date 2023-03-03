@@ -10,9 +10,9 @@ const io = require('socket.io')(
    // transports: ["websocket", "polling"],
    // methods: ["GET", "POST"]
   },
-  allowEIO3: true,
-  allowEIO4: true,
-  credentials: true,
+  // allowEIO3: true,
+  // allowEIO4: true,
+  // credentials: true,
 }
 );
 // const hostname = '127.0.0.1';
