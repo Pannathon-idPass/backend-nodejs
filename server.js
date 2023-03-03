@@ -7,8 +7,8 @@ const io = require('socket.io')(
   , {
   cors:{
     origin: "*",
-    transports: ["websocket", "polling"],
-    methods: ["GET", "POST"]
+   // transports: ["websocket", "polling"],
+   // methods: ["GET", "POST"]
   },
   allowEIO3: true,
   allowEIO4: true,
@@ -45,7 +45,7 @@ var scheduleTime = [
 // ]
 
 // var lastUpdate;
-app.get('/', (req, res) => {
+app.get('/getData', (req, res) => {
   console.log("START GET");
   // res.sendFile(__dirname + '/index.html');
   res.send("RESPOSE DATA");
