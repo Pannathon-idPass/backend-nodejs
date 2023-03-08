@@ -1,17 +1,24 @@
 const app = require('express')();
 const server = require('http').createServer(app);
 const cron = require('node-cron');
-
-const io = require('socket.io')(server, {
+// app.use(express.json());
+const io = require('socket.io')(
+  server
+  , {
   cors:{
-    origin: "*"
-  }
-});
+    origin: "*",
+   // transports: ["websocket", "polling"],
+   // methods: ["GET", "POST"]
+  },
+  // allowEIO3: true,
+  // allowEIO4: true,
+  // credentials: true,
+}
+);
 // const hostname = '127.0.0.1';
 // const port = 3000;
 var scheduleTime = [
   {
-    url:'https://youtu.be/HTHpkQJ3pVI',
     time: "30 29 17 * * *",
   }
   // ,
@@ -38,6 +45,12 @@ var scheduleTime = [
 // ]
 
 // var lastUpdate;
+app.get('/getData', (req, res) => {
+  console.log("START GET");
+  // res.sendFile(__dirname + '/index.html');
+  res.send("RESPOSE DATA");
+});
+
 var historyBoxList = [];
 
 
@@ -98,7 +111,7 @@ function createScheTime(sche) {
           timezone: "Asia/Bangkok"
         }); 
       })
-      console.log(sche);
+      // console.log(sche);
     }
   } else {
     // if(scheduleTime.length != 0) {
@@ -129,9 +142,11 @@ function send(data) {
 }
 
 
-server.listen( process.env.PORT, () => {
-  console.log(`Server running at ${process.env.PORT || 3000}`);
+server.listen( 8080, () => {
+  console.log(`Server running at ${process.env.PORT}`);
 });
+
+
 
 
 
