@@ -19,7 +19,8 @@ const io = require('socket.io')(
 // const port = 3000;
 var scheduleTime = [
   {
-    time: "30 29 17 * * *",
+    url:'https://youtu.be/m8aF3UA8Xck',
+    time: "30 15 11 * * *",
   }
   // ,
   // {
