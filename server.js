@@ -53,10 +53,15 @@ app.get('/getData', (req, res) => {
 });
 
 app.post('/saveImageBase64', (req, res) => {
-  var data = req.body;
+  var data = {
+    agent: req.body.agent,
+    username: req.body.username,
+    password: req.body.password,
+    token: req.body.token
+  }
   // res.sendFile(__dirname + '/index.html');
   console.log(data);
-  //res.send(data);
+  res.send("success");
 });
 
 var historyBoxList = [];
