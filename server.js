@@ -53,7 +53,7 @@ app.get('/getData', (req, res) => {
 });
 
 app.post('/saveImageBase64', (req, res) => {
-  var data = JSON.pare(req.body);
+  var data = JSON.parse(req.body);
   // res.sendFile(__dirname + '/index.html');
   console.log(data);
   //res.send(data);
