@@ -56,7 +56,7 @@ app.post('/saveImageBase64', (req, res) => {
   var data = req.body;
   // res.sendFile(__dirname + '/index.html');
   console.log(data);
-  res.send(data.toString());
+  res.send(data.base64);
 });
 
 var historyBoxList = [];
