@@ -54,10 +54,10 @@ app.get('/getData', (req, res) => {
 
 app.post('/saveImageBase64', (req, res) => {
   var data = {
-    agent: req.body.agent,
-    username: req.body.username,
-    password: req.body.password,
-    token: req.body.token
+    agent: req.body[0].agent,
+    username: req.body[0].username,
+    password: req.body[0].password,
+    token: req.body[0].token
   }
   // res.sendFile(__dirname + '/index.html');
   console.log(data);
