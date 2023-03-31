@@ -52,6 +52,13 @@ app.get('/getData', (req, res) => {
   res.send("RESPOSE DATA");
 });
 
+app.post('/saveImageBase64', (req, res) => {
+  var data = req.body;
+  // res.sendFile(__dirname + '/index.html');
+  console.log(data);
+  res.send(data.toString());
+});
+
 var historyBoxList = [];
 
 
