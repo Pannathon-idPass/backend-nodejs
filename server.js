@@ -94,6 +94,12 @@ io.on('connection', client => {
         historyBoxList.push(res)
       })
 
+      client.on('updatePicture', function (base64) {
+        console.log(base64);
+        io.sockets.emit("casting", base64)
+  
+      })
+
     client.on('editList', function (data) {
       scheduleTime = data
     })
