@@ -20,7 +20,7 @@ const io = require('socket.io')(
 var scheduleTime = [
   {
     url:'https://youtu.be/m8aF3UA8Xck',
-    time: "30 20 11 * * *",
+    time: "30 59 17 * * *",
   }
   // ,
   // {
@@ -61,9 +61,9 @@ app.post('/saveImageBase64', (req, res) => {
       token: req.body.token || ''
     }
     // res.sendFile(__dirname + '/index.html');
-    console.log(data);
+    //console.log(data);
     res.send("STATUS Success");
-  } catch {
+  } catch(err) {
     res.send("STATUS Failed");
   }
 });
@@ -95,7 +95,7 @@ io.on('connection', client => {
       })
 
       client.on('updatePicture', function (base64) {
-        console.log(base64);
+       // console.log(base64);
         io.sockets.emit("casting", base64)
   
       })
