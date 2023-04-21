@@ -1,6 +1,6 @@
 const app = require('express');
-const api = require('express')();
-const server = require('http').createServer(api);
+//const api = require('express')();
+const server = require('http').createServer(app);
 
 const io = require('socket.io')(server);
 const cron = require('node-cron');
@@ -35,27 +35,27 @@ var scheduleTime = [
 // ]
 
 // var lastUpdate;
-api.get('/getData', (req, res) => {
-  console.log("START GET");
-  // res.sendFile(__dirname + '/index.html');
-  res.send("RESPOSE DATA");
-});
+// api.get('/getData', (req, res) => {
+//   console.log("START GET");
+//   // res.sendFile(__dirname + '/index.html');
+//   res.send("RESPOSE DATA");
+// });
 
-api.post('/saveImageBase64', (req, res) => {
-  try {
-    var data = {
-      agent: req.body.agent || '',
-      username: req.body.username || '',
-      password: req.body.password || '',
-      token: req.body.token || ''
-    }
-    // res.sendFile(__dirname + '/index.html');
-    //console.log(data);
-    res.send("STATUS Success");
-  } catch(err) {
-    res.send("STATUS Failed");
-  }
-});
+// api.post('/saveImageBase64', (req, res) => {
+//   try {
+//     var data = {
+//       agent: req.body.agent || '',
+//       username: req.body.username || '',
+//       password: req.body.password || '',
+//       token: req.body.token || ''
+//     }
+//     // res.sendFile(__dirname + '/index.html');
+//     //console.log(data);
+//     res.send("STATUS Success");
+//   } catch(err) {
+//     res.send("STATUS Failed");
+//   }
+// });
 
 var historyBoxList = [];
 
