@@ -1,20 +1,9 @@
-const app = require('express')();
+const app = require('express');
+const api = require('express')();
 const server = require('http').createServer(app);
+
+const io = require('socket.io')(server);
 const cron = require('node-cron');
-// app.use(express.json());
-const io = require('socket.io')(
-  server
-  , {
-  cors:{
-    origin: "*",
-   // transports: ["websocket", "polling"],
-   // methods: ["GET", "POST"]
-  },
-  // allowEIO3: true,
-  // allowEIO4: true,
-  // credentials: true,
-}
-);
 // const hostname = '127.0.0.1';
 // const port = 3000;
 var scheduleTime = [
@@ -46,13 +35,13 @@ var scheduleTime = [
 // ]
 
 // var lastUpdate;
-app.get('/getData', (req, res) => {
+api.get('/getData', (req, res) => {
   console.log("START GET");
   // res.sendFile(__dirname + '/index.html');
   res.send("RESPOSE DATA");
 });
 
-app.post('/saveImageBase64', (req, res) => {
+api.post('/saveImageBase64', (req, res) => {
   try {
     var data = {
       agent: req.body.agent || '',
@@ -99,6 +88,12 @@ io.on('connection', client => {
         io.sockets.emit("casting", base64)
   
       })
+
+      client.on('event_name', function (now) {
+       console.log(now.now);
+        // io.sockets.emit("casting", base64)
+   
+       })
 
     client.on('editList', function (data) {
       scheduleTime = data
@@ -168,8 +163,3 @@ function send(data) {
 server.listen( 8080, () => {
   console.log(`Server running at ${process.env.PORT}`);
 });
-
-
-
-
-
