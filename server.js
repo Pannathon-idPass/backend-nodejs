@@ -1,6 +1,6 @@
 const app = require('express');
 const api = require('express')();
-const server = require('http').createServer(app);
+const server = require('http').createServer(api);
 
 const io = require('socket.io')(server);
 const cron = require('node-cron');
