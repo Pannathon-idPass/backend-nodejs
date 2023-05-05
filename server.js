@@ -10,6 +10,10 @@ var scheduleTime = [
   {
     url:'https://youtu.be/m8aF3UA8Xck',
     time: "30 59 17 * * *",
+  },
+  {
+    op:'clearMessage',
+    time: "00 59 23 * * *",
   }
   // ,
   // {
@@ -131,6 +135,8 @@ function createScheTime(sche) {
       })
       // console.log(sche);
     }
+  } else if(sche.op && sche.op == "clearMessage") { //clearMessage
+      historyBoxList = [];
   } else {
     // if(scheduleTime.length != 0) {
     //   scheduleTime.forEach((data)=> {
