@@ -1,19 +1,26 @@
-const app = require('express');
-//const api = require('express')();
+const app = require('express')();
 const server = require('http').createServer(app);
-
-const io = require('socket.io')(server);
 const cron = require('node-cron');
+// app.use(express.json());
+const io = require('socket.io')(
+  server
+  , {
+  cors:{
+    origin: "*",
+   // transports: ["websocket", "polling"],
+   // methods: ["GET", "POST"]
+  },
+  // allowEIO3: true,
+  // allowEIO4: true,
+  // credentials: true,
+}
+);
 // const hostname = '127.0.0.1';
 // const port = 3000;
 var scheduleTime = [
   {
     url:'https://youtu.be/m8aF3UA8Xck',
     time: "30 59 17 * * *",
-  },
-  {
-    op:'clearMessage',
-    time: "00 59 23 * * *",
   }
   // ,
   // {
@@ -39,27 +46,27 @@ var scheduleTime = [
 // ]
 
 // var lastUpdate;
-// api.get('/getData', (req, res) => {
-//   console.log("START GET");
-//   // res.sendFile(__dirname + '/index.html');
-//   res.send("RESPOSE DATA");
-// });
+app.get('/getData', (req, res) => {
+  console.log("START GET");
+  // res.sendFile(__dirname + '/index.html');
+  res.send("RESPOSE DATA");
+});
 
-// api.post('/saveImageBase64', (req, res) => {
-//   try {
-//     var data = {
-//       agent: req.body.agent || '',
-//       username: req.body.username || '',
-//       password: req.body.password || '',
-//       token: req.body.token || ''
-//     }
-//     // res.sendFile(__dirname + '/index.html');
-//     //console.log(data);
-//     res.send("STATUS Success");
-//   } catch(err) {
-//     res.send("STATUS Failed");
-//   }
-// });
+app.post('/saveImageBase64', (req, res) => {
+  try {
+    var data = {
+      agent: req.body.agent || '',
+      username: req.body.username || '',
+      password: req.body.password || '',
+      token: req.body.token || ''
+    }
+    // res.sendFile(__dirname + '/index.html');
+    //console.log(data);
+    res.send("STATUS Success");
+  } catch(err) {
+    res.send("STATUS Failed");
+  }
+});
 
 var historyBoxList = [];
 
@@ -92,12 +99,6 @@ io.on('connection', client => {
         io.sockets.emit("casting", base64)
   
       })
-
-      client.on('event_name', function (now) {
-       console.log(now.now);
-        // io.sockets.emit("casting", base64)
-   
-       })
 
     client.on('editList', function (data) {
       scheduleTime = data
@@ -135,8 +136,6 @@ function createScheTime(sche) {
       })
       // console.log(sche);
     }
-  } else if(sche.op && sche.op == "clearMessage") { //clearMessage
-      historyBoxList = [];
   } else {
     // if(scheduleTime.length != 0) {
     //   scheduleTime.forEach((data)=> {
@@ -169,3 +168,8 @@ function send(data) {
 server.listen( 8080, () => {
   console.log(`Server running at ${process.env.PORT}`);
 });
+
+
+
+
+
